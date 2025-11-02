@@ -1,8 +1,4 @@
-// 🔑 ใส่คีย์ของคุณที่นี่
 const OPENWEATHER_KEY = "362ddf4f147d393275663a94ca9b6384";
-const OPENROUTER_KEY = "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";
-const MODEL = "openai/gpt-3.5-turbo";
-
 
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("user-input");
@@ -119,8 +115,10 @@ async function askLLM_OpenRouter(userText, weatherInfo, forecast, city) {
   const icon = weatherInfo.weather[0].icon;
   const temp = weatherInfo.main.temp;
   const desc = weatherInfo.weather[0].description;
-  
-  const forecastSummary = forecast.map(f => `${f.dt_txt.split(" ")[0]} ${f.weather[0].description} ${f.main.temp}°C`).join("\n");
+
+  const forecastSummary = forecast.map(f =>
+    `${f.dt_txt.split(" ")[0]} ${f.weather[0].description} ${f.main.temp}°C`
+  ).join("\n");
 
   const prompt = `
   ผู้ใช้ถามว่า: ${userText}
@@ -132,32 +130,20 @@ async function askLLM_OpenRouter(userText, weatherInfo, forecast, city) {
   ใส่อีโมจิที่เหมาะกับอากาศ และแนะนำกิจกรรมเหมาะสม 1 อย่าง
   `;
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  // ✅ เรียก API ผ่านเซิร์ฟเวอร์แทน openrouter โดยตรง
+  const res = await fetch("/api/ask", {
     method: "POST",
-    headers: {
-        "Authorization": `Bearer ${OPENROUTER_KEY}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://127.0.0.1:5500",
-        "X-Title": "Smart Weather Chatbot v2"
-      },      
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [
-        { role: "system", content: "คุณคือผู้ช่วยพยากรณ์อากาศที่พูดเป็นมิตรและสุภาพ" },
-        { role: "user", content: prompt }
-      ]
-    })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: prompt }),
   });
 
   const data = await res.json();
-  if (data.error) {
-    console.error("OpenRouter Error:", data.error);
-  }
-  const aiReply = data.choices?.[0]?.message?.content || "ขอโทษค่ะ ระบบไม่สามารถตอบได้ตอนนี้ 😢";
-  const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+  const aiReply = data.reply || "ขอโทษค่ะ ระบบไม่สามารถตอบได้ตอนนี้ 😢";
 
+  const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return `<img src="${iconUrl}" width="50"><br>${aiReply}`;
 }
+
 
 // ---------------------- GRAPH ----------------------
 let currentChart;
