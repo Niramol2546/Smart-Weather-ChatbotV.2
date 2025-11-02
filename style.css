@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Prompt', sans-serif;
+  transition: background 1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(120deg, #89f7fe, #66a6ff);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* 🌤 Animated Gradient */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Themes: Dynamic weather tones */
+body.sunny { background: linear-gradient(120deg, #f6d365, #fda085); animation: gradientShift 20s ease infinite; }
+body.rainy { background: linear-gradient(120deg, #89f7fe, #66a6ff); animation: gradientShift 25s ease infinite; }
+body.cloudy { background: linear-gradient(120deg, #d7d2cc, #304352); animation: gradientShift 25s ease infinite; }
+body.night { background: linear-gradient(120deg, #232526, #414345); animation: gradientShift 30s ease infinite; }
+
+.chat-container {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 420px;
+  height: 640px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.chat-container:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  text-align: center;
+  background: rgba(0, 153, 255, 0.85);
+  color: white;
+  padding: 12px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.chat-box {
+  flex-grow: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  max-width: 80%;
+  line-height: 1.5;
+  font-size: 15px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.user {
+  background: linear-gradient(120deg, #c6ffdd, #fbd786, #f7797d);
+  align-self: flex-end;
+  color: #222;
+  border-bottom-right-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.bot {
+  background: rgba(255, 255, 255, 0.8);
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.input-area {
+  display: flex;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+input {
+  flex-grow: 1;
+  border: none;
+  padding: 12px;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+  color: #333;
+}
+
+input::placeholder {
+  color: #777;
+}
+
+button {
+  background: linear-gradient(120deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 0 0 0 0;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  background: linear-gradient(120deg, #0072ff, #00c6ff);
+  transform: scale(1.05);
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .chat-container {
+    width: 95%;
+    height: 90vh;
+  }
+  h2 { font-size: 18px; }
+  input { font-size: 14px; }
+}
+body.sunny {
+    background: linear-gradient(180deg, #FFD580, #FFA500);
+  }
+  
+  body.cloudy {
+    background: linear-gradient(180deg, #C9D6FF, #E2E2E2);
+  }
+  
+  body.rainy {
+    background: linear-gradient(180deg, #A1C4FD, #C2E9FB);
+  }
+  
+  body.night {
+    background: linear-gradient(180deg, #2C3E50, #4CA1AF);
+  }
+  .chart-container {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    display: none; /* ซ่อนจนกว่าจะมีข้อมูล */
+  }
+  
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+    
